@@ -90,6 +90,7 @@ The default keybindings in lsp-zero are meant to emulate Neovim's default whenev
 - `<C-l>`: Window right
 - `<leader>pv`: Vim command execution
 - `jk` (in Insert mode): Escape to Normal mode
+- `<leader>m`: View this markdown file
 
 ## VimTeX Keybindings
 

@@ -19,3 +19,11 @@ vim.keymap.set("n", "N", "Nzzzv")
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+function _G.pandoc_and_open()
+   local cmd = "pandoc -t pdf $HOME/.config/nvim/README.md | zathura -"
+   vim.fn.system(cmd)
+end
+
+vim.api.nvim_set_keymap('n', '<leader>m', '<cmd>lua _G.pandoc_and_open()<CR>', {noremap = true, silent = true})
+
