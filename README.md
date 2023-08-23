@@ -1,12 +1,15 @@
-### Remove Previous Configuration
+# Complete Installation:
+
+* ### Remove Previous Configuration
 ```shell
 rm -rf ~/.local/share/nvim ~/.local/share/nvim.bak
 rm -rf ~/.local/state/nvim ~/.local/state/nvim.bak
 rm -rf ~/.cache/nvim ~/.cache/nvim.bak
 rm -rf ~/.local/share/nvim/tree-sitter-*
 ```
+Might be useful to move these files rather than completely removing them if you want to save your original configuration :)
 
-### Installation:
+* ### Actual Installation:
 #### Install packer:
 ```shell
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
@@ -17,7 +20,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 git clone https://github.com/Panable/nvim ~/.config/nvim
 ```
 
-### Keybindings
+# Keybindings:
 
 ## LSP-Zero Keybindings
 When a language server gets attached to a buffer you gain access to some keybindings and commands. All of these shortcuts are bound to built-in functions, so you can get more details using the `:help` command.
@@ -74,23 +77,23 @@ The default keybindings in lsp-zero are meant to emulate Neovim's default whenev
 
 ## Telescope Keybindings
 
-- **`<leader>pf`**: find_files
-- **`<C-p>`**: git_files
-- **`<leader>ps`**: grep_string (has input for grep string)
+- `<leader>pf`: find_files
+- `<C-p>`: git_files
+- `<leader>ps`: grep_string (has input for grep string)
 
 ## General Keybindings
 
-- **`<leader>e`**: NvimTreeToggle
-- **`<C-h>`**: Window left
-- **`<C-j>`**: Window down
-- **`<C-k>`**: Window up
-- **`<C-l>`**: Window right
-- **`<leader>pv`**: Vim command execution
-- **`jk`** (in Insert mode): Escape to Normal mode
+- `<leader>e`: NvimTreeToggle
+- `<C-h>`: Window left
+- `<C-j>`: Window down
+- `<C-k>`: Window up
+- `<C-l>`: Window right
+- `<leader>pv`: Vim command execution
+- `jk` (in Insert mode): Escape to Normal mode
 
 ## VimTeX Keybindings
 
-- **`<Leader>ll`**: VimtexCompile
-- **`<Leader>lv`**: VimtexView
-- **`<Space>tv`**: VimtexView
+- `<Leader>ll`: VimtexCompile
+- `<Leader>lv`: VimtexView
+- `<Space>tv`: VimtexView
 
