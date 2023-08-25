@@ -39,11 +39,6 @@ function generateCppClass(className, classPath)
     srcFile:close()
 end -- Keybinding to generate C++ class in the current nvim-tree directory
 
-vim.api.nvim_set_keymap('n', '<S-c>',
-    ':lua generateCppClass(vim.fn.input("Enter Class Name > "), vim.fn.expand("%:p:h"))<CR>',
-    { noremap = true, silent = true })
-
-
 vim.api.nvim_set_keymap('n', '<leader>cc',
     ':lua generateCppClass(vim.fn.input("Enter Class Name > "), vim.fn.expand("%:p:h"))<CR>',
     { noremap = true, silent = true })
