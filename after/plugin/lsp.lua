@@ -14,6 +14,20 @@ lsp.setup()
 local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
 
+local ls = require'luasnip'
+
+-- function to load snippets for file types
+local function load_snippets_for_ft(filetype)
+    local ft_table = { filetype }
+    if filetype == 'php' then
+        table.insert(ft_table, 'html')
+    end
+    ls.filetype_extend(filetype, ft_table)
+end
+
+-- load_snippets_for_ft for PHP
+load_snippets_for_ft('php')
+
 require('luasnip.loaders.from_vscode').lazy_load()
 cmp.setup({
     sources = {
