@@ -42,18 +42,26 @@ return require('packer').startup(function(use)
         "ray-x/lsp_signature.nvim",
     }
     use { 'saadparwaiz1/cmp_luasnip' }
-    -- use 'lervag/vimtex'
+    use 'lervag/vimtex'
     use {
         'nvim-tree/nvim-tree.lua',
         requires = {
             'nvim-tree/nvim-web-devicons', -- optional
         },
     }
-    use 'nvim-tree/nvim-web-devicons'      -- optional
+    use 'nvim-tree/nvim-web-devicons' -- optional
     use 'lambdalisue/suda.vim'
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
     }
     use 'ThePrimeagen/vim-be-good'
+    use {
+        'Kohirus/cppassist.nvim',
+        opt = true,
+        ft = { "h", "cpp", "hpp", "c", "cc", "cxx" },
+        config = function()
+            require("cppassist").setup()
+        end,
+    }
 end)
