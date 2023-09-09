@@ -2,9 +2,9 @@
 
 * ### Remove Previous Configuration
 ```shell
-rm -rf ~/.local/share/nvim ~/.local/share/nvim.bak
-rm -rf ~/.local/state/nvim ~/.local/state/nvim.bak
-rm -rf ~/.cache/nvim ~/.cache/nvim.bak
+rm -rf ~/.local/share/nvim
+rm -rf ~/.local/state/nvim
+rm -rf ~/.cache/nvim
 rm -rf ~/.local/share/nvim/tree-sitter-*
 ```
 Might be useful to move these files rather than completely removing them if you want to save your original configuration :)
