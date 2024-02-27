@@ -52,8 +52,8 @@ require("nvim-tree").setup()
 
 -- OR setup with some options
 require("nvim-tree").setup({
-    disable_netrw = true,
-    hijack_netrw = true,
+    disable_netrw = false,
+    hijack_netrw = false,
     sort_by = "case_sensitive",
     view = {
         width = 30,
