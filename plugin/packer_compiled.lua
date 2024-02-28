@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/thepanable/.cache/nvim/packer_hererocks/2.1.1692616192/share/lua/5.1/?.lua;/home/thepanable/.cache/nvim/packer_hererocks/2.1.1692616192/share/lua/5.1/?/init.lua;/home/thepanable/.cache/nvim/packer_hererocks/2.1.1692616192/lib/luarocks/rocks-5.1/?.lua;/home/thepanable/.cache/nvim/packer_hererocks/2.1.1692616192/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/thepanable/.cache/nvim/packer_hererocks/2.1.1692616192/lib/lua/5.1/?.so"
+local package_path_str = "/home/thepanable/.cache/nvim/packer_hererocks/2.1.1702233742/share/lua/5.1/?.lua;/home/thepanable/.cache/nvim/packer_hererocks/2.1.1702233742/share/lua/5.1/?/init.lua;/home/thepanable/.cache/nvim/packer_hererocks/2.1.1702233742/lib/luarocks/rocks-5.1/?.lua;/home/thepanable/.cache/nvim/packer_hererocks/2.1.1702233742/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/thepanable/.cache/nvim/packer_hererocks/2.1.1702233742/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -204,12 +204,12 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType cxx ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "cxx" }, _G.packer_plugins)]]
-vim.cmd [[au FileType h ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "h" }, _G.packer_plugins)]]
-vim.cmd [[au FileType cc ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "cc" }, _G.packer_plugins)]]
 vim.cmd [[au FileType cpp ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "cpp" }, _G.packer_plugins)]]
-vim.cmd [[au FileType c ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "c" }, _G.packer_plugins)]]
 vim.cmd [[au FileType hpp ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "hpp" }, _G.packer_plugins)]]
+vim.cmd [[au FileType cxx ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "cxx" }, _G.packer_plugins)]]
+vim.cmd [[au FileType cc ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "cc" }, _G.packer_plugins)]]
+vim.cmd [[au FileType c ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "c" }, _G.packer_plugins)]]
+vim.cmd [[au FileType h ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "h" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 

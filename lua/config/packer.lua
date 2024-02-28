@@ -51,6 +51,7 @@ return require('packer').startup(function(use)
     }
     use 'nvim-tree/nvim-web-devicons' -- optional
     use 'lambdalisue/suda.vim'
+    use 'tpope/vim-surround'
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
