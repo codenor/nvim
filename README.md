@@ -10,6 +10,13 @@ rm -rf ~/.local/share/nvim/tree-sitter-*
 Might be useful to move these files rather than completely removing them if you want to save your original configuration :)
 
 * ### Actual Installation:
+
+#### Dependencies:
+```shell
+ripgrep
+texlive-bin - only required for latex
+```
+
 #### Install packer:
 ```shell
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
