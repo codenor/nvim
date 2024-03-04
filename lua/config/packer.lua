@@ -7,6 +7,7 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.2',
         -- or                            , branch = '0.1.x',
@@ -52,6 +53,7 @@ return require('packer').startup(function(use)
     use 'nvim-tree/nvim-web-devicons' -- optional
     use 'lambdalisue/suda.vim'
     use 'tpope/vim-surround'
+    use 'tpope/vim-repeat'
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end

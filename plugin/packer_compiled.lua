@@ -188,6 +188,16 @@ _G.packer_plugins = {
     path = "/home/thepanable/.local/share/nvim/site/pack/packer/start/vim-be-good",
     url = "https://github.com/ThePrimeagen/vim-be-good"
   },
+  ["vim-repeat"] = {
+    loaded = true,
+    path = "/home/thepanable/.local/share/nvim/site/pack/packer/start/vim-repeat",
+    url = "https://github.com/tpope/vim-repeat"
+  },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/home/thepanable/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
+  },
   vimtex = {
     loaded = true,
     path = "/home/thepanable/.local/share/nvim/site/pack/packer/start/vimtex",
@@ -204,12 +214,12 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
+vim.cmd [[au FileType h ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "h" }, _G.packer_plugins)]]
 vim.cmd [[au FileType cpp ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "cpp" }, _G.packer_plugins)]]
 vim.cmd [[au FileType hpp ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "hpp" }, _G.packer_plugins)]]
-vim.cmd [[au FileType cxx ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "cxx" }, _G.packer_plugins)]]
-vim.cmd [[au FileType cc ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "cc" }, _G.packer_plugins)]]
 vim.cmd [[au FileType c ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "c" }, _G.packer_plugins)]]
-vim.cmd [[au FileType h ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "h" }, _G.packer_plugins)]]
+vim.cmd [[au FileType cc ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "cc" }, _G.packer_plugins)]]
+vim.cmd [[au FileType cxx ++once lua require("packer.load")({'cppassist.nvim'}, { ft = "cxx" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 
