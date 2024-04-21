@@ -4,11 +4,14 @@ local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 vim.g.mapleader = " "
+-- Map <Leader>h to ClangdSwitchSourceHeader
+vim.api.nvim_set_keymap('n', '<Leader>h', ':ClangdSwitchSourceHeader<CR>', { noremap = true, silent = true })
 
 -- Moving lines up and down in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+vim.keymap.set("i", "<C-c>", "<Esc>")
 
 -- Navigation
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)

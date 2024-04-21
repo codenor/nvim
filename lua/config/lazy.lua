@@ -1,5 +1,15 @@
 -- Install Lazy
 
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -9,6 +19,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+	"tpope/vim-surround",
+	"tpope/vim-repeat",
 	{ "numToStr/Comment.nvim", opts = {} }, -- gcc -> comment line, gbc -> comment block
 	{
 		"folke/which-key.nvim",
@@ -27,17 +39,29 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"folke/tokyonight.nvim",
+		"catppuccin/nvim",
 		priority = 1000, -- make sure to load this before all the other start plugins
 		init = function()
 			-- Load the colorscheme here.
 			-- Like many other themes, this one has different styles, and you could load
 			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			vim.cmd.colorscheme("tokyonight-night")
+			vim.cmd.colorscheme("catppuccin-mocha")
 
 			-- You can configure highlights by doing something like
 			vim.cmd.hi("Comment gui=none")
 		end,
+		-- "bluz71/vim-moonfly-colors",
+		-- priority = 1000, -- make sure to load this before all the other start plugins
+		-- init = function()
+		-- 	vim.g.moonflyTransparent = true;
+		-- 	-- Load the colorscheme here.
+		-- 	-- Like many other themes, this one has different styles, and you could load
+		-- 	-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+		-- 	vim.cmd.colorscheme("moonfly")
+		--
+		-- 	-- You can configure highlights by doing something like
+		-- 	vim.cmd.hi("Comment gui=none")
+		-- end,
 	},
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
@@ -114,24 +138,72 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"nvim-tree/nvim-tree.lua",
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
-			require("nvim-tree").setup({
-				disable_netrw = true,
-				hijack_netrw = true,
-				sort_by = "case_sensitive",
-				view = {
-					width = 30,
-				},
-				renderer = {
-					group_empty = true,
-				},
-				filters = {
-					dotfiles = true,
-				},
-			})
-			vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Nvim-Tree [E]xplore" })
+			local harpoon = require("harpoon")
+			harpoon:setup({})
+
+			-- basic telescope configuration
+			local conf = require("telescope.config").values
+			local function toggle_telescope(harpoon_files)
+				local file_paths = {}
+				for _, item in ipairs(harpoon_files.items) do
+					table.insert(file_paths, item.value)
+				end
+
+				require("telescope.pickers")
+					.new({}, {
+						prompt_title = "Harpoon",
+						finder = require("telescope.finders").new_table({
+							results = file_paths,
+						}),
+						previewer = conf.file_previewer({}),
+						sorter = conf.generic_sorter({}),
+					})
+					:find()
+			end
+
+			vim.keymap.set("n", "<C-e>", function()
+				toggle_telescope(harpoon:list())
+			end, { desc = "Open harpoon window" })
+
+			vim.keymap.set("n", "<leader>a", function()
+				harpoon:list():add()
+			end)
+			vim.keymap.set("n", "<C-e>", function()
+				harpoon.ui:toggle_quick_menu(harpoon:list())
+			end)
+
+			vim.keymap.set("n", "<leader>h1", function()
+				harpoon:list():select(1)
+			end)
+			vim.keymap.set("n", "<leader>h2", function()
+				harpoon:list():select(2)
+			end)
+			vim.keymap.set("n", "<leader>h3", function()
+				harpoon:list():select(3)
+			end)
+			vim.keymap.set("n", "<leader>h4", function()
+				harpoon:list():select(4)
+			end)
+
+			-- Toggle previous & next buffers stored within Harpoon list
+			vim.keymap.set("n", "<C-P>", function()
+				harpoon:list():prev()
+			end)
+			vim.keymap.set("n", "<C-N>", function()
+				harpoon:list():next()
+			end)
 		end,
+	},
+	{
+		"stevearc/oil.nvim",
+		opts = {},
+		-- Optional dependencies
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Oil [E]xplore" })
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -337,6 +409,7 @@ require("lazy").setup({
 					-- is found.
 					javascript = { { "prettierd", "prettier" } },
 					html = { { "prettierd", "prettier" } },
+					sh = { { "beautysh" } },
 				},
 			})
 			vim.keymap.set("", "<leader>f", function()
