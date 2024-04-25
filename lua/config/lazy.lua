@@ -203,7 +203,7 @@ require("lazy").setup({
 		opts = {},
 		-- Optional dependencies
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Oil [E]xplore" })
+		vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Oil [E]xplore" }),
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -409,6 +409,7 @@ require("lazy").setup({
 					-- is found.
 					javascript = { { "prettierd", "prettier" } },
 					html = { { "prettierd", "prettier" } },
+					php = { { "prettierd" } },
 					sh = { { "beautysh" } },
 				},
 			})
@@ -452,6 +453,17 @@ require("lazy").setup({
 			-- See `:help cmp`
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
+			-- function to load snippets for file types
+			local function load_snippets_for_ft(filetype)
+				local ft_table = { filetype }
+				if filetype == "php" then
+					table.insert(ft_table, "html")
+				end
+				luasnip.filetype_extend(filetype, ft_table)
+			end
+
+			-- load_snippets_for_ft for PHP
+			load_snippets_for_ft("php")
 			require("luasnip.loaders.from_vscode").lazy_load()
 			luasnip.config.setup({})
 
@@ -518,7 +530,7 @@ require("lazy").setup({
 
 			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "bash", "c", "html", "lua", "markdown", "vim", "vimdoc" },
+				ensure_installed = { "bash", "c", "html", "lua", "markdown", "vim", "vimdoc", "php" },
 				-- Autoinstall languages that are not installed
 				auto_install = true,
 				highlight = { enable = true },
@@ -534,3 +546,11 @@ require("lazy").setup({
 		end,
 	},
 })
+
+local isLspDiagnosticsVisible = true
+vim.keymap.set("n", "<leader>lx", function()
+    isLspDiagnosticsVisible = not isLspDiagnosticsVisible
+    vim.diagnostic.config({
+        virtual_text = isLspDiagnosticsVisible,
+        underline = isLspDiagnosticsVisible
+    }) end)

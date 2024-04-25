@@ -20,6 +20,7 @@ vim.opt.scrolloff = 10                           -- is one of my fav
 
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set("n", "<C-c>", "<cmd>nohlsearch<CR>")
 
 vim.opt.incsearch = true
 

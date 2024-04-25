@@ -9,3 +9,10 @@ vim.api.nvim_set_keymap('n', '<Leader>j', '_', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>k', '$', { noremap = true })
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.g.omni_sql_no_default_maps = 1
+-- Define autocmd to set autoindent for PHP files
+vim.cmd[[
+  augroup php_autoindent
+    autocmd!
+    autocmd FileType php lua vim.bo.autoindent = true
+  augroup END
+]]
