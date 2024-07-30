@@ -572,6 +572,18 @@ require("lazy").setup({
 			require("luasnip").config.setup({ enable_autosnippets = true })
 		end,
 	},
+	{
+		"HakonHarnes/img-clip.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- add options here
+			-- or leave it empty to use the default settings
+		},
+		keys = {
+			-- suggested keymap
+			{ "<leader>P", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+		},
+	},
 })
 
 local isLspDiagnosticsVisible = true
