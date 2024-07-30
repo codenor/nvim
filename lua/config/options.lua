@@ -42,6 +42,7 @@ vim.opt.splitright = true                       -- force all vertical splits to 
 
 vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
 -- vim.opt.showtabline = 2                        -- always show tabs
+vim.opt.guicursor = "n-v-i-c:block-Cursor"
 
 vim.opt.wrap = false                            -- display lines as one long line
 vim.opt.sidescrolloff = 8

@@ -23,45 +23,12 @@ require("lazy").setup({
 	"tpope/vim-repeat",
 	{ "numToStr/Comment.nvim", opts = {} }, -- gcc -> comment line, gbc -> comment block
 	{
-		"folke/which-key.nvim",
-		event = "VimEnter", -- Sets the loading event to 'VimEnter'
-		config = function() -- This is the function that runs, AFTER loading
-			require("which-key").setup()
-
-			-- Document existing key chains
-			require("which-key").register({
-				["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-				["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-				["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
-				["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
-			})
-		end,
-	},
-	{
-		"catppuccin/nvim",
+		"blazkowolf/gruber-darker.nvim",
 		priority = 1000, -- make sure to load this before all the other start plugins
 		init = function()
-			-- Load the colorscheme here.
-			-- Like many other themes, this one has different styles, and you could load
-			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			vim.cmd.colorscheme("catppuccin-mocha")
-
-			-- You can configure highlights by doing something like
+			vim.cmd.colorscheme("gruber-darker")
 			vim.cmd.hi("Comment gui=none")
 		end,
-		-- "bluz71/vim-moonfly-colors",
-		-- priority = 1000, -- make sure to load this before all the other start plugins
-		-- init = function()
-		-- 	vim.g.moonflyTransparent = true;
-		-- 	-- Load the colorscheme here.
-		-- 	-- Like many other themes, this one has different styles, and you could load
-		-- 	-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-		-- 	vim.cmd.colorscheme("moonfly")
-		--
-		-- 	-- You can configure highlights by doing something like
-		-- 	vim.cmd.hi("Comment gui=none")
-		-- end,
 	},
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
@@ -437,6 +404,14 @@ require("lazy").setup({
 					end
 					return "make install_jsregexp"
 				end)(),
+				{
+					"mireq/luasnip-snippets",
+					dependencies = { "L3MON4D3/LuaSnip" },
+					init = function()
+						-- Mandatory setup function
+						require("luasnip_snippets.common.snip_utils").setup()
+					end,
+				},
 			},
 			"saadparwaiz1/cmp_luasnip",
 
@@ -548,12 +523,62 @@ require("lazy").setup({
 			--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 		end,
 	},
+	{
+		"lervag/vimtex",
+
+		-- configuration
+		config = function()
+			-- Vimtex settings
+			vim.g.tex_flavor = "latex"
+			vim.g.tex_fast = "bMpr"
+			vim.g.tex_conceal = ""
+			vim.g.vimtex_enabled = 1
+			vim.o.conceallevel = 0
+			vim.g.vimtex_indent_enabled = 0
+			vim.g.vimtex_matchparen_enabled = 0
+			vim.g.vimtex_imaps_enabled = 0
+
+			-- Configure compiler
+			vim.g.vimtex_compiler_method = "latexmk"
+			vim.g.vimtex_compiler_latexmk = {
+				aux_dir = "aux",
+				out_dir = "build",
+				callback = 1,
+				continuous = 1,
+				executable = "latexmk",
+				options = {
+					"-shell-escape",
+					"-verbose",
+					"-file-line-error",
+					"-synctex=1",
+					"-interaction=nonstopmode",
+					"-emulate-aux-dir",
+					'-auxdir="aux"',
+					'-outdir=""',
+				},
+			}
+			vim.api.nvim_set_keymap("n", "<Leader>ll", ":VimtexCompile<CR>", { noremap = true, silent = true })
+			vim.api.nvim_set_keymap("n", "<Leader>lv", ":VimtexView<CR>", { noremap = true, silent = true })
+			vim.api.nvim_set_keymap("n", "<Space>tv", ":VimtexView<CR>", { noremap = true, silent = true })
+		end,
+	},
+	{
+		"iurimateus/luasnip-latex-snippets.nvim",
+		-- vimtex isn't required if using treesitter
+		requires = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
+		config = function()
+			require("luasnip-latex-snippets").setup()
+			-- or setup({ use_treesitter = true })
+			require("luasnip").config.setup({ enable_autosnippets = true })
+		end,
+	},
 })
 
 local isLspDiagnosticsVisible = true
 vim.keymap.set("n", "<leader>lx", function()
-    isLspDiagnosticsVisible = not isLspDiagnosticsVisible
-    vim.diagnostic.config({
-        virtual_text = isLspDiagnosticsVisible,
-        underline = isLspDiagnosticsVisible
-    }) end)
+	isLspDiagnosticsVisible = not isLspDiagnosticsVisible
+	vim.diagnostic.config({
+		virtual_text = isLspDiagnosticsVisible,
+		underline = isLspDiagnosticsVisible,
+	})
+end)
