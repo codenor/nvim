@@ -584,6 +584,144 @@ require("lazy").setup({
 			{ "<leader>P", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
 		},
 	},
+	{
+		"iabdelkareem/csharp.nvim",
+		dependencies = {
+			"williamboman/mason.nvim", -- Required, automatically installs omnisharp
+			"mfussenegger/nvim-dap",
+			"rcarriga/nvim-dap-ui",
+			"nvim-neotest/nvim-nio",
+			"Tastyep/structlog.nvim", -- Optional, but highly recommended for debugging
+		},
+		config = function()
+			local dap = require("dap")
+			dap.adapters.netcoredbg = {
+				type = "executable",
+				command = "netcoredbg",
+				args = { "--interpreter=vscode" },
+			}
+
+			dap.configurations.cs = {
+				{
+					type = "netcoredbg",
+					name = "launch - netcoredbg",
+					request = "launch",
+					program = function()
+						---@diagnostic disable-next-line
+						return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
+					end,
+				},
+			}
+			require("mason").setup() -- Mason setup must run before csharp, only if you want to use omnisharp
+			require("csharp").setup()
+
+			vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
+			vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
+
+			-- Eval var under cursor
+			vim.keymap.set("n", "<space>?", function()
+				require("dapui").eval(nil, { enter = true })
+			end)
+
+			local cs = require("csharp")
+			vim.keymap.set("n", "<leader>cd", cs.debug_project)
+			vim.keymap.set("n", "<leader>cr", cs.run_project)
+			vim.keymap.set("n", "<F1>", dap.continue)
+			vim.keymap.set("n", "<F2>", dap.step_into)
+			vim.keymap.set("n", "<F3>", dap.step_over)
+			vim.keymap.set("n", "<F4>", dap.step_out)
+			vim.keymap.set("n", "<F5>", dap.step_back)
+			vim.keymap.set("n", "<F12>", dap.restart)
+		end,
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			"nvim-neotest/nvim-nio",
+		},
+		event = "VeryLazy",
+		config = function()
+			local dap, dapui = require("dap"), require("dapui")
+			-- INFO: To see what config is available do :dapui.setup()
+			dapui.setup({
+				layouts = {
+					{
+						elements = {
+							{
+								id = "scopes",
+								size = 0.25,
+							},
+							-- {
+							-- 	id = "breakpoints",
+							-- 	size = 0.25,
+							-- },
+							{
+								id = "stacks",
+								size = 0.25,
+							},
+							{
+								id = "watches",
+								size = 0.50,
+							},
+						},
+						position = "left",
+						size = 60,
+					},
+					{
+						elements = {
+							{
+								id = "console",
+								size = 0.2,
+							},
+							{
+								id = "repl",
+								size = 0.8,
+							},
+						},
+						position = "bottom",
+						size = 10,
+					},
+				},
+				sidebar = {
+					open_on_start = true,
+					elements = {
+						"scopes",
+						"breakpoints",
+						"stacks",
+						"watches",
+					},
+					size = 40,
+					position = "left",
+				},
+			})
+
+			vim.keymap.set("n", "<leader>Ds", function()
+				dapui.open()
+				dap.continue()
+			end, { desc = "Start debugging" })
+			vim.keymap.set("n", "<leader>dt", function()
+				dap.terminate()
+				dapui.close()
+			end, { desc = "Stop debugging" })
+
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+
+			dap.listeners.before.launch.dapui_config = function()
+				dapui.open()
+			end
+
+			dap.listeners.before.event_terminated.dapui_config = function()
+				dapui.close()
+			end
+
+			dap.listeners.before.event_exited.dapui_config = function()
+				dapui.close()
+			end
+		end,
+	},
 })
 
 local isLspDiagnosticsVisible = true
