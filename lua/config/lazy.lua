@@ -722,6 +722,19 @@ require("lazy").setup({
 			end
 		end,
 	},
+	{
+		"https://gitlab.com/itaranto/plantuml.nvim",
+		opts = {
+			renderer = {
+				type = "image",
+				options = {
+					prog = "feh",
+					dark_mode = true,
+				},
+			},
+			render_on_write = true,
+		},
+	},
 })
 
 local isLspDiagnosticsVisible = true

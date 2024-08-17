@@ -50,3 +50,17 @@ vim.opt.colorcolumn = "0"
 
 vim.opt.shortmess:append "c"
 
+
+-- Create an autocommand group to avoid multiple definitions
+vim.api.nvim_create_augroup('PlantUML', { clear = true })
+
+-- Define the autocmd to run the command on file save
+vim.api.nvim_create_autocmd('BufWritePost', {
+    group = 'PlantUML',
+    pattern = '*.puml',
+    callback = function()
+        local filename = vim.fn.expand('%')  -- Get the current file name
+        local command = 'plantuml ' .. filename .. ' -tlatex:nopreamble'
+        os.execute(command)  -- Execute the command
+    end
+})
