@@ -21,6 +21,15 @@ require("lazy").setup({
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 	"tpope/vim-surround",
 	"tpope/vim-repeat",
+	"Mofiqul/dracula.nvim",
+	"wellle/context.vim",
+	"frenzyexists/aquarium-vim",
+	{
+	  "killitar/obscure.nvim",
+	  lazy = false,
+	  priority = 1000,
+	  opts = {}
+	},
 	{ "numToStr/Comment.nvim", opts = {} }, -- gcc -> comment line, gbc -> comment block
 	{
 		"blazkowolf/gruber-darker.nvim",
@@ -28,6 +37,14 @@ require("lazy").setup({
 		init = function()
 			vim.cmd.colorscheme("gruber-darker")
 			vim.cmd.hi("Comment gui=none")
+		end,
+	},
+	{
+		"navarasu/onedark.nvim",
+		init = function()
+			require('onedark').setup {
+				style = 'darker'
+			}
 		end,
 	},
 	{ -- Fuzzy Finder (files, lsp, etc)
@@ -205,6 +222,10 @@ require("lazy").setup({
 						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
 
+					local vmap = function(keys, func, desc)
+						vim.keymap.set("v", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+					end
+
 					-- Jump to the definition of the word under your cursor.
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-T>.
@@ -241,6 +262,7 @@ require("lazy").setup({
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					-- or a suggestion from your LSP for this to activate.
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+					vmap("<F3>", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
 					-- Opens a popup that displays documentation about the word under your cursor
 					--  See `:help K` for why this keymap
@@ -305,7 +327,7 @@ require("lazy").setup({
 				--    https://github.com/pmizio/typescript-tools.nvim
 				--
 				-- But for many setups, the LSP (`tsserver`) will work just fine
-				tsserver = {},
+				-- tsserver = {},
 				--
 
 				lua_ls = {
@@ -585,56 +607,6 @@ require("lazy").setup({
 		},
 	},
 	{
-		"iabdelkareem/csharp.nvim",
-		dependencies = {
-			"williamboman/mason.nvim", -- Required, automatically installs omnisharp
-			"mfussenegger/nvim-dap",
-			"rcarriga/nvim-dap-ui",
-			"nvim-neotest/nvim-nio",
-			"Tastyep/structlog.nvim", -- Optional, but highly recommended for debugging
-		},
-		config = function()
-			local dap = require("dap")
-			dap.adapters.netcoredbg = {
-				type = "executable",
-				command = "netcoredbg",
-				args = { "--interpreter=vscode" },
-			}
-
-			dap.configurations.cs = {
-				{
-					type = "netcoredbg",
-					name = "launch - netcoredbg",
-					request = "launch",
-					program = function()
-						---@diagnostic disable-next-line
-						return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
-					end,
-				},
-			}
-			require("mason").setup() -- Mason setup must run before csharp, only if you want to use omnisharp
-			require("csharp").setup()
-
-			vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
-			vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
-
-			-- Eval var under cursor
-			vim.keymap.set("n", "<space>?", function()
-				require("dapui").eval(nil, { enter = true })
-			end)
-
-			local cs = require("csharp")
-			vim.keymap.set("n", "<leader>cd", cs.debug_project)
-			vim.keymap.set("n", "<leader>cr", cs.run_project)
-			vim.keymap.set("n", "<F1>", dap.continue)
-			vim.keymap.set("n", "<F2>", dap.step_into)
-			vim.keymap.set("n", "<F3>", dap.step_over)
-			vim.keymap.set("n", "<F4>", dap.step_out)
-			vim.keymap.set("n", "<F5>", dap.step_back)
-			vim.keymap.set("n", "<F12>", dap.restart)
-		end,
-	},
-	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = {
 			"mfussenegger/nvim-dap",
@@ -734,6 +706,21 @@ require("lazy").setup({
 			},
 			render_on_write = true,
 		},
+	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "VeryLazy",
+		opts = {},
+		config = function(_, opts)
+			require("lsp_signature").setup(opts)
+			vim.keymap.set({ "n" }, "<C-k>", function()
+				require("lsp_signature").toggle_float_win()
+			end, { silent = true, noremap = true, desc = "toggle signature" })
+
+			vim.keymap.set({ "n" }, "<Leader>k", function()
+				vim.lsp.buf.signature_help()
+			end, { silent = true, noremap = true, desc = "toggle signature" })
+		end,
 	},
 })
 

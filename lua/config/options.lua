@@ -28,7 +28,7 @@ vim.opt.expandtab = true                        -- convert tabs to spaces
 vim.opt.shiftwidth = 4                          -- the number of spaces inserted for each indentation
 vim.opt.tabstop = 4                             -- insert 2 spaces for a tab
 
-vim.opt.termguicolors = false                    -- set term gui colors (most terminals support this)
+vim.opt.termguicolors = true                    -- set term gui colors (most terminals support this)
 vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
 vim.opt.conceallevel = 0                        -- so that `` is visible in markdown files
 
