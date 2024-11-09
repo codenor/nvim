@@ -21,7 +21,7 @@ return {
 				python = { "isort", "black" },
 			},
 		})
-		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+		vim.keymap.set({ "n", "v" }, "<leader>f", function()
 			require("conform").format({
 				lsp_fallback = true,
 				async = false,
