@@ -164,10 +164,10 @@ return { -- Autocompletion
 			window = {
 				documentation = cmp.config.window.bordered(),
 			},
-			experimental = {
-				ghost_text = true,
-				native_menu = false,
-			},
+			-- experimental = {
+			-- 	ghost_text = true,
+			-- 	native_menu = false,
+			-- },
 		})
 	end,
 }
