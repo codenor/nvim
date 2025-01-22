@@ -1,3 +1,20 @@
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
+local isLspDiagnosticsVisible = true
+vim.keymap.set("n", "<leader>lx", function()
+	isLspDiagnosticsVisible = not isLspDiagnosticsVisible
+	vim.diagnostic.config({
+		virtual_text = isLspDiagnosticsVisible,
+		underline = isLspDiagnosticsVisible,
+	})
+end)
+
 vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
 
 vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
@@ -34,7 +51,7 @@ vim.opt.conceallevel = 0                        -- so that `` is visible in mark
 
 vim.opt.smartindent = true                      -- make indenting smarter again
 vim.opt.signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
-vim.opt.pumheight = 10                          -- pop up menu height
+vim.opt.pumheight = 13                          -- pop up menu height
 vim.opt.numberwidth = 4                         -- set number column width to 2 {default 4}
 
 vim.opt.splitbelow = true                       -- force all horizontal splits to go below current window
@@ -50,6 +67,8 @@ vim.opt.colorcolumn = "0"
 
 vim.opt.shortmess:append "c"
 
+
+-- clean me
 
 -- Create an autocommand group to avoid multiple definitions
 vim.api.nvim_create_augroup('PlantUML', { clear = true })
