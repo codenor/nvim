@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 local isLspDiagnosticsVisible = true
-vim.keymap.set("n", "<leader>lx", function()
+vim.keymap.set("n", "<leader>lr", function()
 	isLspDiagnosticsVisible = not isLspDiagnosticsVisible
 	vim.diagnostic.config({
 		virtual_text = isLspDiagnosticsVisible,
