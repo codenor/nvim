@@ -83,3 +83,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
         os.execute(command)  -- Execute the command
     end
 })
+
+-- Disable comments when pressing enter.
+vim.opt.formatoptions:remove("r");
+vim.opt.formatoptions:remove("o");
