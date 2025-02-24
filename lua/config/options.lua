@@ -68,6 +68,7 @@ vim.opt.colorcolumn = "0"
 vim.opt.shortmess:append "c"
 
 
+
 -- clean me
 
 -- Create an autocommand group to avoid multiple definitions
@@ -87,3 +88,4 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- Disable comments when pressing enter.
 vim.opt.formatoptions:remove("r");
 vim.opt.formatoptions:remove("o");
+

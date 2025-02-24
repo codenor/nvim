@@ -24,3 +24,5 @@ vim.keymap.set("n", "<leader>lx", function()
         virtual_text = isLspDiagnosticsVisible,
         underline = isLspDiagnosticsVisible
     }) end)
+
+vim.opt.laststatus = 0
