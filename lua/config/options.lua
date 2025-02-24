@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 local isLspDiagnosticsVisible = true
-vim.keymap.set("n", "<leader>lx", function()
+vim.keymap.set("n", "<leader>lr", function()
 	isLspDiagnosticsVisible = not isLspDiagnosticsVisible
 	vim.diagnostic.config({
 		virtual_text = isLspDiagnosticsVisible,
@@ -68,6 +68,7 @@ vim.opt.colorcolumn = "0"
 vim.opt.shortmess:append "c"
 
 
+
 -- clean me
 
 -- Create an autocommand group to avoid multiple definitions
@@ -83,3 +84,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
         os.execute(command)  -- Execute the command
     end
 })
+
+-- Disable comments when pressing enter.
+vim.opt.formatoptions:remove("r");
+vim.opt.formatoptions:remove("o");
+

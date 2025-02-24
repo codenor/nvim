@@ -4,6 +4,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		"benfowler/telescope-luasnip.nvim",
 		"nvim-tree/nvim-web-devicons",
 		"folke/todo-comments.nvim",
 	},
@@ -37,6 +38,7 @@ return {
 		})
 
 		telescope.load_extension("fzf")
+		telescope.load_extension('luasnip')
 
 		-- set keymaps
 		local keymap = vim.keymap -- for conciseness

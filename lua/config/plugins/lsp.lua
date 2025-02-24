@@ -120,6 +120,9 @@ return {
 				}, -- Add additional options here
 				filetypes = { "c", "cpp", "h", "hpp" },
 			},
+			emmet_ls = {
+				filetypes = { "php", "html", "css" },
+			},
 			-- ccls = {},
 			gopls = {},
 			pyright = {},
