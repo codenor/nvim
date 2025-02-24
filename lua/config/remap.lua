@@ -50,3 +50,12 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc='set [X]ecutable', silent = true })
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", {desc = '[F]ind projects'})
+-- Disable ESLint LSP server and hide virtual text in Neovim
+-- Add this to your init.lua or init.vim file
+local isLspDiagnosticsVisible = true
+vim.keymap.set("n", "<leader>lx", function()
+    isLspDiagnosticsVisible = not isLspDiagnosticsVisible
+    vim.diagnostic.config({
+        virtual_text = isLspDiagnosticsVisible,
+        underline = isLspDiagnosticsVisible
+    }) end)
