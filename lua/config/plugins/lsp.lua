@@ -111,6 +111,10 @@ return {
 		--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 		--  - settings (table): Override the default settings passed when initializing the server.
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+		--
+		require("mason").setup()
+		local mason_registry = require("mason-registry")
+		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path() .. "/node_modules/@vue/language-server"
 		local servers = {
 			clangd = {
 				cmd = {
@@ -135,6 +139,19 @@ return {
 			-- But for many setups, the LSP (`tsserver`) will work just fine
 			-- tsserver = {},
 			--
+
+			ts_ls = {
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_language_server_path,
+							languages = { "vue" },
+						},
+					},
+				},
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+			},
 
 			lua_ls = {
 				-- cmd = {...},
@@ -170,7 +187,6 @@ return {
 		--    :Mason
 		--
 		--  You can press `g?` for help in this menu
-		require("mason").setup()
 
 		-- You can add other tools here that you want Mason to install
 		-- for you, so that they are available from within Neovim.
@@ -178,6 +194,8 @@ return {
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format lua code
 			"asm_lsp",
+			"vue-language-server",
+			"volar",
 			"clangd",
 			"cmake",
 			"csharpier",
@@ -213,5 +231,6 @@ return {
 				end,
 			},
 		})
+		require("lspconfig").volar.setup{}
 	end,
 }
