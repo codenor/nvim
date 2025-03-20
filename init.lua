@@ -33,4 +33,4 @@ vim.api.nvim_create_user_command("ClearHighlights", function()
   vim.cmd("highlight Normal ctermbg=NONE guibg=NONE")
 end, {})
 
-vim.cmd("ClearHighlights");
+-- vim.cmd("ClearHighlights");
