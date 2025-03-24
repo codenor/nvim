@@ -1,8 +1,8 @@
 return {
-	"blazkowolf/gruber-darker.nvim",
-	priority = 1000, -- make sure to load this before all the other start plugins
+	"askfiy/visual_studio_code",
+	priority = 1000,
 	init = function()
-		vim.cmd.colorscheme("gruber-darker")
-		vim.cmd.hi("Comment gui=none")
+		vim.cmd.colorscheme("visual_studio_code")
+		require("theme.neogit-theme-vscode-darkplus-fallback").setup()
 	end,
 }

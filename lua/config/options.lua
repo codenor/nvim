@@ -42,8 +42,8 @@ vim.keymap.set("n", "<C-c>", "<cmd>nohlsearch<CR>")
 vim.opt.incsearch = true
 
 vim.opt.expandtab = true                        -- convert tabs to spaces
-vim.opt.shiftwidth = 4                          -- the number of spaces inserted for each indentation
-vim.opt.tabstop = 4                             -- insert 2 spaces for a tab
+vim.opt.shiftwidth = 2                          -- the number of spaces inserted for each indentation
+vim.opt.tabstop = 2                             -- insert 2 spaces for a tab
 
 vim.opt.termguicolors = true                    -- set term gui colors (most terminals support this)
 vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
@@ -58,7 +58,7 @@ vim.opt.splitbelow = true                       -- force all horizontal splits t
 vim.opt.splitright = true                       -- force all vertical splits to go to the right of current window
 
 vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
--- vim.opt.showtabline = 2                        -- always show tabs
+vim.opt.showtabline = 2                        -- always show tabs
 vim.opt.guicursor = "n-v-i-c:block-Cursor"
 
 vim.opt.wrap = false                            -- display lines as one long line

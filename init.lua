@@ -25,12 +25,6 @@ vim.keymap.set("n", "<leader>lx", function()
         underline = isLspDiagnosticsVisible
     }) end)
 
-vim.opt.laststatus = 0
-
-vim.api.nvim_create_user_command("ClearHighlights", function()
-  vim.cmd("highlight CursorLineNR guibg=NONE")
-  vim.cmd("highlight CursorLine guibg=NONE guifg=NONE")
-  vim.cmd("highlight Normal ctermbg=NONE guibg=NONE")
-end, {})
+vim.opt.laststatus = 3
 
 -- vim.cmd("ClearHighlights");
