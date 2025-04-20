@@ -216,6 +216,9 @@ return {
 			"stylua",
 			"typescript-language-server",
 			"zls",
+			"eslint-lsp",
+			"terraformls",
+			"tailwindcss-language-server",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

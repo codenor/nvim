@@ -1,30 +1,34 @@
-require 'config.options'
-require 'config.remap'
-require 'config.lazy'
+require("config.options")
+require("config.remap")
+require("config.lazy")
 
 -- Map <Leader>j to move to the start of the line
-vim.api.nvim_set_keymap('n', '<Leader>j', '_', { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>j", "_", { noremap = true })
 
 -- Map <Leader>h to move to the end of the line
-vim.api.nvim_set_keymap('n', '<Leader>k', '$', { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>k", "$", { noremap = true })
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.g.omni_sql_no_default_maps = 1
 -- Define autocmd to set autoindent for PHP files
-vim.cmd[[
+vim.cmd([[
   augroup php_autoindent
     autocmd!
     autocmd FileType php lua vim.bo.autoindent = true
   augroup END
-]]
+]])
 
 local isLspDiagnosticsVisible = true
 vim.keymap.set("n", "<leader>lx", function()
-    isLspDiagnosticsVisible = not isLspDiagnosticsVisible
-    vim.diagnostic.config({
-        virtual_text = isLspDiagnosticsVisible,
-        underline = isLspDiagnosticsVisible
-    }) end)
+	isLspDiagnosticsVisible = not isLspDiagnosticsVisible
+	vim.diagnostic.config({
+		virtual_text = isLspDiagnosticsVisible,
+		underline = isLspDiagnosticsVisible,
+	})
+end)
 
 vim.opt.laststatus = 3
+
+-- Disable textwidth
+vim.opt.textwidth = 0
 
 -- vim.cmd("ClearHighlights");
