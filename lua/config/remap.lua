@@ -69,3 +69,36 @@ vim.keymap.set("n", "<leader>lx", function()
 		underline = isLspDiagnosticsVisible,
 	})
 end)
+
+-- Buffer Navigation
+vim.keymap.set("n", "<leader>bb", "<Cmd>BufferOrderByBufferNumber<CR>", { desc = "[B]uffer sort by [B]uffer number" })
+vim.keymap.set("n", "<leader>bn", "<Cmd>BufferOrderByName<CR>", { desc = "[B]uffer sort by [N]ame" })
+vim.keymap.set("n", "<leader>bd", "<Cmd>BufferOrderByDirectory<CR>", { desc = "[B]uffer sort by [D]irectory" })
+vim.keymap.set("n", "<leader>bl", "<Cmd>BufferOrderByLanguage<CR>", { desc = "[B]uffer sort by [L]anguage" })
+vim.keymap.set("n", "<leader>bw", "<Cmd>BufferOrderByWindowNumber<CR>", { desc = "[B]uffer sort by [W]indow number" })
+
+-- Buffer Pick Mode
+vim.keymap.set("n", "<leader>bp", "<Cmd>BufferPick<CR>", { desc = "[B]uffer [P]ick mode" })
+vim.keymap.set("n", "<leader>bP", "<Cmd>BufferPickDelete<CR>", { desc = "[B]uffer [P]ick + delete" })
+
+-- Buffer Close Commands
+vim.keymap.set("n", "<leader>bc", "<Cmd>BufferClose<CR>", { desc = "[B]uffer [C]lose current" })
+vim.keymap.set("n", "<leader>bo", "<Cmd>BufferCloseAllButCurrent<CR>", { desc = "[B]uffer close [O]thers" })
+vim.keymap.set(
+	"n",
+	"<leader>bx",
+	"<Cmd>BufferCloseAllButCurrentOrPinned<CR>",
+	{ desc = "[B]uffer close all but current or pinned" }
+)
+vim.keymap.set("n", "<leader>bu", "<Cmd>BufferCloseAllButPinned<CR>", { desc = "[B]uffer close [U]npinned" })
+vim.keymap.set("n", "<leader>bh", "<Cmd>BufferCloseBuffersLeft<CR>", { desc = "[B]uffer close to the [H]left" })
+vim.keymap.set("n", "<leader>br", "<Cmd>BufferCloseBuffersRight<CR>", { desc = "[B]uffer close to the [R]ight" })
+
+-- Buffer Pin
+vim.keymap.set("n", "<leader>b.", "<Cmd>BufferPin<CR>", { desc = "[B]uffer [.] Toggle pin" })
+vim.keymap.set("n", "<leader>bgp", "<Cmd>BufferGotoPinned<CR>", { desc = "[B]uffer [G]oto [P]inned" })
+vim.keymap.set("n", "<leader>bgu", "<Cmd>BufferGotoUnpinned<CR>", { desc = "[B]uffer [G]oto [U]npinned" })
+
+-- Bonus: Reorder Buffers
+vim.keymap.set("n", "<leader>b<", "<Cmd>BufferMovePrevious<CR>", { desc = "[B]uffer move [<]-left" })
+vim.keymap.set("n", "<leader>b>", "<Cmd>BufferMoveNext<CR>", { desc = "[B]uffer move [>]-right" })
