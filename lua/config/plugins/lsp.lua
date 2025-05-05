@@ -10,14 +10,14 @@ return {
 		-- Useful status updates for LSP.
 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 		{ "j-hui/fidget.nvim", opts = {} },
-		{
-			"ray-x/lsp_signature.nvim",
-			opts = {
-				handler_opts = { border = "rounded" },
-				hi_parameter = "LspSignatureActiveParameter",
-				hint_prefix = "",
-			},
-		},
+		-- {
+		-- 	"ray-x/lsp_signature.nvim",
+		-- 	opts = {
+		-- 		handler_opts = { border = "rounded" },
+		-- 		hi_parameter = "LspSignatureActiveParameter",
+		-- 		hint_prefix = "",
+		-- 	},
+		-- },
 	},
 	config = function()
 		--  This function gets run when an LSP attaches to a particular buffer.
@@ -41,20 +41,20 @@ return {
 					vim.keymap.set("v", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
 
-				local plugin_opts = require("lazy.core.config").plugins["lsp_signature.nvim"].opts
-				require("lsp_signature").on_attach(plugin_opts, event.buf)
-
-				local function set_signature_highlight()
-					vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", {
-						fg = "#ffffff",
-						bg = "#007acc",
-						bold = true,
-					})
-				end
-				set_signature_highlight()
-				vim.api.nvim_create_autocmd("ColorScheme", {
-					callback = set_signature_highlight,
-				})
+				-- local plugin_opts = require("lazy.core.config").plugins["lsp_signature.nvim"].opts
+				-- require("lsp_signature").on_attach(plugin_opts, event.buf)
+				--
+				-- local function set_signature_highlight()
+				-- 	vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", {
+				-- 		fg = "#ffffff",
+				-- 		bg = "#007acc",
+				-- 		bold = true,
+				-- 	})
+				-- end
+				-- set_signature_highlight()
+				-- vim.api.nvim_create_autocmd("ColorScheme", {
+				-- 	callback = set_signature_highlight,
+				-- })
 
 				-- Jump to the definition of the word under your cursor.
 				--  This is where a variable was first declared, or where a function is defined, etc.
