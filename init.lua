@@ -29,6 +29,6 @@ end)
 vim.opt.laststatus = 3
 
 -- Disable textwidth
-vim.opt.textwidth = 0
+-- vim.opt.textwidth = 0
 
 -- vim.cmd("ClearHighlights");
