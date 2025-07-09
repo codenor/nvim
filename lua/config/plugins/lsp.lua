@@ -117,6 +117,11 @@ return {
 		local mason_registry = require("mason-registry")
 		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
 			.. "/node_modules/@vue/language-server"
+
+		-- Dynamically detect the Poetry python path
+		local poetry_venv_path = vim.fn.system("poetry env info -p"):gsub("\n", "")
+		local python_bin = poetry_venv_path .. "/bin/python"
+
 		local servers = {
 			clangd = {
 				cmd = {
@@ -131,7 +136,11 @@ return {
 			},
 			-- ccls = {},
 			gopls = {},
-			pyright = {},
+			pyright = { settings = {
+				python = {
+					pythonPath = python_bin,
+				},
+			} },
 			rust_analyzer = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			--
