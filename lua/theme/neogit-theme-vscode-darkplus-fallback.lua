@@ -29,6 +29,21 @@ function M.setup()
 	hl(0, "NormalFloat", { fg = "#cdd6f4" })
 	hl(0, "FloatBorder", { fg = "#569CD6" })
 	hl(0, "LspSignatureActiveParameter", { bg = "#4e4e4e", bold = true })
+
+	-- VSCode-like barbar tab styling
+	hl(0, "BufferCurrent", { fg = "#D4D4D4", bg = "#1e1e1e", bold = true }) 
+	hl(0, "BufferCurrentMod", { fg = "#E2C08D", bg = "#1e1e1e", bold = true })
+	hl(0, "BufferCurrentSign", { fg = "#569CD6", bg = "#1e1e1e" })
+
+	hl(0, "BufferInactive", { fg = "#808080", bg = "#252526" })
+	hl(0, "BufferInactiveMod", { fg = "#C586C0", bg = "#252526" })
+	hl(0, "BufferInactiveSign", { fg = "#3C3C3C", bg = "#252526" })
+
+	hl(0, "BufferVisible", { fg = "#D4D4D4", bg = "#2D2D2D" })
+	hl(0, "BufferVisibleSign", { fg = "#2D2D2D", bg = "#2D2D2D" })
+
+	hl(0, "BufferTabpageFill", { bg = "#1e1e1e" }) 
+	hl(0, "BufferOffset", { fg = "#D4D4D4", bg = "#1e1e1e" })
 end
 
 return M

@@ -70,35 +70,60 @@ vim.keymap.set("n", "<leader>lx", function()
 	})
 end)
 
--- Buffer Navigation
-vim.keymap.set("n", "<leader>bb", "<Cmd>BufferOrderByBufferNumber<CR>", { desc = "[B]uffer sort by [B]uffer number" })
-vim.keymap.set("n", "<leader>bn", "<Cmd>BufferOrderByName<CR>", { desc = "[B]uffer sort by [N]ame" })
-vim.keymap.set("n", "<leader>bd", "<Cmd>BufferOrderByDirectory<CR>", { desc = "[B]uffer sort by [D]irectory" })
-vim.keymap.set("n", "<leader>bl", "<Cmd>BufferOrderByLanguage<CR>", { desc = "[B]uffer sort by [L]anguage" })
-vim.keymap.set("n", "<leader>bw", "<Cmd>BufferOrderByWindowNumber<CR>", { desc = "[B]uffer sort by [W]indow number" })
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
 
--- Buffer Pick Mode
-vim.keymap.set("n", "<leader>bp", "<Cmd>BufferPick<CR>", { desc = "[B]uffer [P]ick mode" })
-vim.keymap.set("n", "<leader>bP", "<Cmd>BufferPickDelete<CR>", { desc = "[B]uffer [P]ick + delete" })
+-- Move to previous/next
+map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
+map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
 
--- Buffer Close Commands
-vim.keymap.set("n", "<leader>bc", "<Cmd>BufferClose<CR>", { desc = "[B]uffer [C]lose current" })
-vim.keymap.set("n", "<leader>bo", "<Cmd>BufferCloseAllButCurrent<CR>", { desc = "[B]uffer close [O]thers" })
-vim.keymap.set(
-	"n",
-	"<leader>bx",
-	"<Cmd>BufferCloseAllButCurrentOrPinned<CR>",
-	{ desc = "[B]uffer close all but current or pinned" }
-)
-vim.keymap.set("n", "<leader>bu", "<Cmd>BufferCloseAllButPinned<CR>", { desc = "[B]uffer close [U]npinned" })
-vim.keymap.set("n", "<leader>bh", "<Cmd>BufferCloseBuffersLeft<CR>", { desc = "[B]uffer close to the [H]left" })
-vim.keymap.set("n", "<leader>br", "<Cmd>BufferCloseBuffersRight<CR>", { desc = "[B]uffer close to the [R]ight" })
+-- Re-order to previous/next
+map("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", opts)
+map("n", "<A->>", "<Cmd>BufferMoveNext<CR>", opts)
 
--- Buffer Pin
-vim.keymap.set("n", "<leader>b.", "<Cmd>BufferPin<CR>", { desc = "[B]uffer [.] Toggle pin" })
-vim.keymap.set("n", "<leader>bgp", "<Cmd>BufferGotoPinned<CR>", { desc = "[B]uffer [G]oto [P]inned" })
-vim.keymap.set("n", "<leader>bgu", "<Cmd>BufferGotoUnpinned<CR>", { desc = "[B]uffer [G]oto [U]npinned" })
+-- Goto buffer in position...
+map("n", "<A-1>", "<Cmd>BufferGoto 1<CR>", opts)
+map("n", "<A-2>", "<Cmd>BufferGoto 2<CR>", opts)
+map("n", "<A-3>", "<Cmd>BufferGoto 3<CR>", opts)
+map("n", "<A-4>", "<Cmd>BufferGoto 4<CR>", opts)
+map("n", "<A-5>", "<Cmd>BufferGoto 5<CR>", opts)
+map("n", "<A-6>", "<Cmd>BufferGoto 6<CR>", opts)
+map("n", "<A-7>", "<Cmd>BufferGoto 7<CR>", opts)
+map("n", "<A-8>", "<Cmd>BufferGoto 8<CR>", opts)
+map("n", "<A-9>", "<Cmd>BufferGoto 9<CR>", opts)
+map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
 
--- Bonus: Reorder Buffers
-vim.keymap.set("n", "<leader>b<", "<Cmd>BufferMovePrevious<CR>", { desc = "[B]uffer move [<]-left" })
-vim.keymap.set("n", "<leader>b>", "<Cmd>BufferMoveNext<CR>", { desc = "[B]uffer move [>]-right" })
+-- Pin/unpin buffer
+map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
+
+-- Goto pinned/unpinned buffer
+--                 :BufferGotoPinned
+--                 :BufferGotoUnpinned
+
+-- Close buffer
+map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
+
+-- Wipeout buffer
+--                 :BufferWipeout
+
+-- Close commands
+--                 :BufferCloseAllButCurrent
+--                 :BufferCloseAllButPinned
+--                 :BufferCloseAllButCurrentOrPinned
+--                 :BufferCloseBuffersLeft
+--                 :BufferCloseBuffersRight
+
+-- Magic buffer-picking mode
+map("n", "<space>bp", "<Cmd>BufferPick<CR>", opts)
+map("n", "<space>br", "<Cmd>BufferPickDelete<CR>", opts)
+
+-- Sort automatically by...
+map("n", "<Space>bb", "<Cmd>BufferOrderByBufferNumber<CR>", opts)
+map("n", "<Space>bn", "<Cmd>BufferOrderByName<CR>", opts)
+map("n", "<Space>bd", "<Cmd>BufferOrderByDirectory<CR>", opts)
+map("n", "<Space>bl", "<Cmd>BufferOrderByLanguage<CR>", opts)
+map("n", "<Space>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
+
+-- Other:
+-- :BarbarEnable - enables barbar (enabled by default)
+-- :BarbarDisable - very bad command, should never be used

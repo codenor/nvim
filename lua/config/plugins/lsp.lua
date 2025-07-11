@@ -10,8 +10,16 @@ return {
 		-- Useful status updates for LSP.
 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 
-		-- { "j-hui/fidget.nvim", opts = {} },
+		{
+			"j-hui/fidget.nvim",
+			opts = {
+				notification = {
+					override_vim_notify = true,
+				},
+			},
+		},
 	},
+
 	config = function()
 		--  This function gets run when an LSP attaches to a particular buffer.
 		--    That is to say, every time a new file is opened that is associated with
@@ -115,8 +123,8 @@ return {
 		--
 		require("mason").setup()
 		local mason_registry = require("mason-registry")
-		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
-			.. "/node_modules/@vue/language-server"
+		-- local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+		-- 	.. "/node_modules/@vue/language-server"
 
 		-- Dynamically detect the Poetry python path
 		local poetry_venv_path = vim.fn.system("poetry env info -p"):gsub("\n", "")
@@ -154,14 +162,10 @@ return {
 			ts_ls = {
 				init_options = {
 					plugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = vue_language_server_path,
-							languages = { "vue" },
-						},
+						{},
 					},
 				},
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
 			},
 
 			lua_ls = {
@@ -205,8 +209,6 @@ return {
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format lua code
 			"asm_lsp",
-			"vue-language-server",
-			"volar",
 			"clangd",
 			"cmake",
 			"csharpier",
