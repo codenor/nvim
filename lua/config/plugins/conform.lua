@@ -24,6 +24,7 @@ return {
 				liquid = { "prettier" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
+				cpp = { "clangd" },
 			},
 		})
 		vim.keymap.set({ "n", "v" }, "<leader>f", function()
