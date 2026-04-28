@@ -41,8 +41,8 @@ vim.keymap.set("n", "<C-c>", "<cmd>nohlsearch<CR>")
 vim.opt.incsearch = true
 
 vim.opt.expandtab = true -- convert tabs to spaces
-vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
-vim.opt.tabstop = 2 -- insert 2 spaces for a tab
+vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
+vim.opt.tabstop = 4 -- insert 2 spaces for a tab
 
 vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
 vim.opt.fileencoding = "utf-8" -- the encoding written to a file
@@ -81,6 +81,14 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 		local command2 = "plantuml " .. filename
 		os.execute(command) -- Execute the command
 		os.execute(command2)
+	end,
+})
+
+-- Use // comments for C/C++
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "c", "cpp" },
+	callback = function()
+		vim.opt_local.commentstring = "// %s"
 	end,
 })
 
